@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building..'
-                    sshCommand(remote: vm2, command: "cd jenkins-api/ && echo '12345678' | sudo -S docker-compose up -d --build")
+                    sshCommand(remote: vm2, command: "cd jenkins-api/ && echo 'password2' | sudo -S docker-compose up -d --build")
                 }
             }
         }
@@ -55,11 +55,11 @@ pipeline {
                 script {
                     echo 'gitlab login & push'
                     sshCommand(remote: vm2, command: "cd jenkins-api/ \
-                    && echo '12345678' | sudo -S docker login registry.gitlab.com \
+                    && echo 'password2' | sudo -S docker login registry.gitlab.com \
                     && echo 'Jimmymonster' \
                     && echo 'glpat-f4dTxzyDBemNLeNr8MZj' \
-                    && echo '12345678' | sudo -S docker build -t registry.gitlab.com/jimmymonster/jenkins-api-unittest . \
-                    && echo '12345678' | sudo -S docker push registry.gitlab.com/jimmymonster/jenkins-api-unittest"
+                    && echo 'password2' | sudo -S docker build -t registry.gitlab.com/jimmymonster/jenkins-api-unittest . \
+                    && echo 'password2' | sudo -S docker push registry.gitlab.com/jimmymonster/jenkins-api-unittest"
                     )
 
                 }
@@ -68,13 +68,13 @@ pipeline {
         stage('Deploy on Vm3') {
             steps {
                 echo 'gitlab pull and create container'
-                sshCommand(remote: vm3, command: "echo '12345678' | sudo -S docker login registry.gitlab.com \
+                sshCommand(remote: vm3, command: "echo 'password3' | sudo -S docker login registry.gitlab.com \
                     && echo 'Jimmymonster' \
                     && echo 'glpat-f4dTxzyDBemNLeNr8MZj' \
-                    && echo '12345678' | sudo -S docker pull registry.gitlab.com/jimmymonster/jenkins-api-unittest \
-                    && echo '12345678' | sudo -S docker stop api \
-                    && echo '12345678' | sudo -S docker rm api \
-                    && echo '12345678' | sudo -S docker run -d -p 8001:5000 --name api registry.gitlab.com/jimmymonster/jenkins-api-unittest"
+                    && echo 'password3' | sudo -S docker pull registry.gitlab.com/jimmymonster/jenkins-api-unittest \
+                    && echo 'password3' | sudo -S docker stop api \
+                    && echo 'password3' | sudo -S docker rm api \
+                    && echo 'password3' | sudo -S docker run -d -p 8001:5000 --name api registry.gitlab.com/jimmymonster/jenkins-api-unittest"
                     )
 
             }
